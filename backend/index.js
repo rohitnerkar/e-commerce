@@ -8,19 +8,11 @@ const path = require("path");
 const cors = require("cors");
 const { type } = require("os");
 const { error } = require("console");
-const { connectionUrl } = require("../backend/config/keys")
 
 app.use(express.json());
 app.use(cors());
 
-module.exports = connectMongodb = async() => {
-    try {
-        await mongoose.connect(connectionUrl);
-        console.log("Database connection successful");
-    } catch (error) {
-        // console.log(error.message);
-    }
-}
+mongoose.connect("Your_Database_URL")
 
 app.get("/", (req, res) => {
     res.send("Express app is running")

@@ -8,11 +8,19 @@ const path = require("path");
 const cors = require("cors");
 const { type } = require("os");
 const { error } = require("console");
+const { connectionUrl } = require("../backend/config/keys")
 
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://ecommerce:root@cluster0.zpdfqsd.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0")
+module.exports = connectMongodb = async() => {
+    try {
+        await mongoose.connect(connectionUrl);
+        console.log("Database connection successful");
+    } catch (error) {
+        // console.log(error.message);
+    }
+}
 
 app.get("/", (req, res) => {
     res.send("Express app is running")

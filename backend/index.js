@@ -1,4 +1,6 @@
-const port = 4000;
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -9,10 +11,16 @@ const cors = require("cors");
 const { type } = require("os");
 const { error } = require("console");
 
+const { port } = require("./config/keys");
+const connectMongodb = require("./init/mongodb");
+
+
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("Your_Database_URL")
+connectMongodb();
+
+// mongoose.connect("mongodb+srv://ecommerce:root@cluster0.zpdfqsd.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0")
 
 app.get("/", (req, res) => {
     res.send("Express app is running")
@@ -235,8 +243,9 @@ app.post("/getcart", fetchUser, async(req, res) => {
 
 app.listen(port, (error) => {
     if(!error) {
-        console.log("Server is running on port " + port);
+        console.log(`Server is running on port ${port}`);
     } else {
         console.log("Error: " + error);
     }
 })
+

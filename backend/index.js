@@ -14,13 +14,10 @@ const { error } = require("console");
 const { port } = require("./config/keys");
 const connectMongodb = require("./init/mongodb");
 
-
 app.use(express.json());
 app.use(cors());
 
 connectMongodb();
-
-// mongoose.connect("mongodb+srv://ecommerce:root@cluster0.zpdfqsd.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0")
 
 app.get("/", (req, res) => {
     res.send("Express app is running")
